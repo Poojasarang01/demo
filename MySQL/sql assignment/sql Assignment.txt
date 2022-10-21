@@ -1,0 +1,32 @@
+Query:
+
+1.select c.Custname,b.billno,b.date from customer as c inner join bill as b on c.Custid=b.Custid order by b.date; 
+
+2.select c.Custname,sum(price) from billitem as bi inner join bill as b on bi.billno=b.billno
+   inner join customer as c on c.Custid=b.Custid group by b.Custid; 
+   
+3.select c.Custname,count(bi.pid) from customer as c inner join bill as b on c.Custid=b.Custid inner join billitem as bi
+ on b.billno= bi.billno inner join product as p on p.pid=bi.billid group by b.Custid; 
+
+4.select cat.catname,bi.price from category cat inner join product prod on cat.catid = prod.catid inner join billItem bi on 
+  prod.pid=bi.prodid where bi.price =(select max(price) from billitem);
+  
+5.select cat.catname,bi.price from category cat inner join product prod on cat.catid = prod.catid inner join billItem bi
+ on prod.pid=bi.prodid where bi.price =(select min(price) from billitem);
+ 
+6.select p.catid,count(bi.billitemid),c.compname from product as p inner join billitem as bi 
+  on p.pid=bi.prodid inner join Company as c on c.compid=p.compid group by p.catid; 
+
+7.select c.compname,count(bi.billitemid) from product as p inner join billitem as bi on p.pid=bi.billitemid 
+  inner join Company as c on c.compid=p.compid group by p.compid;
+
+8.select com.compname,c.catname,count(p.pid) from product as p inner join category as c on p.catid=c.catid 
+   inner join Company as com on com.compid=p.compid group by p.catid; 
+
+9.select count(bi.billno),b.date from billitem as bi inner join bill as b on b.billno=bi.billno group by b.date; 
+
+10.select count(bi.billno),b.date from billitem as bi inner join bill as b on b.billno=bi.billno group by b.date; 
+
+11.select b.date,sum(bi.price) from bill as b inner join billitem as bi on b.billno= bi.billno group by b.date;
+
+12.select * from Customer where Custid not in (select Custid from bill) ;
